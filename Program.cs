@@ -2,16 +2,38 @@
 {
     internal class Program
     {
-        public static void CaloriesCalculator(int x, int y)
+        public static int CaloriesCalculator(string[] x, int[] y)
         {
-            Console.WriteLine(x + y);
+            int totalCalories = 0;
+            for (int i = 0; i < x.Length; i++)
+            {
+                Console.WriteLine(x[i] + " : " + y[i]);
+                totalCalories = y[i] + totalCalories;
+            }
+            return totalCalories;
+        }
+
+        public static void checkCalories(int totalCal, int myLimit)
+        {   
+            if(myLimit < totalCal)
+            {
+                Console.WriteLine("Good Diet");
+            }
+            else
+            {
+                Console.WriteLine("Eat More");
+            }
         }
         static void Main(string[] args)
         {
-            int apple = 160;
-            int orange = (int)120.2;
+            string[] fruits = { "apple", "orange", "bannana" };
+            int[] calories = { 120, 85, 90 };
 
-            CaloriesCalculator(apple, orange);
+            int myCalorieLimit = 300;
+
+            int totalCal = CaloriesCalculator(fruits, calories);
+
+            checkCalories(totalCal, totalCal);
 
         }
     }
