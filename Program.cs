@@ -1,64 +1,110 @@
 ﻿namespace ConsoleApp1
 {
 
-    public class HeroVillan
+    internal class CaloriesTracker
     {
 
-        int total_bullets = 20;
-        List<int> heroBullets = new List<int>();
-        List<int> villanBullets = new List<int>();
-        public void StartFight() 
+        public struct NewUser
         {
-            int current_bullet = 0;
-            while (total_bullets > 0)
+            public string username;
+            public int age;
+            public float height;
+            public float weight;
+        }
+
+        public CaloriesTracker(NewUser user1)
+        {
+            user1.username = "Baalavignesh A";
+            user1.age = 22;
+            user1.height = 170;
+            user1.weight = 77;
+
+            Console.WriteLine("User Initialized");
+        }
+
+
+
+        public void AddItem(ref string[] fruites, ref int[] calories)
+        {
+            string new_food;
+            int new_cal;
+            Console.WriteLine("Adding a New Item");
+
+            // Enter the food item and validate it
+            Console.Write("Enter a Food Item :");
+            new_food = Console.ReadLine();
+            if (!string.IsNullOrEmpty(new_food))
             {
-                Console.Write("Enter Who is shooting (1 Hero, 2 Villan) :");
+                fruites = fruites.Append(new_food).ToArray();
+            }
 
-                int user_input = Convert.ToInt32(Console.ReadLine());
+            // Enter the food calories and validate
+            bool is_valid = false;
+            while (!is_valid)
+            {
+                try
+                {
+                    Console.Write("Enter a Food Item Calories:");
+                    new_cal = Convert.ToInt32(Console.ReadLine());
+                    is_valid = true;
+                    calories = calories.Append(new_cal).ToArray();
 
-                if (user_input == 1)
-                {
-                    total_bullets--;
-                    current_bullet++;
-                    heroBullets.Add(current_bullet);
                 }
-                else if (user_input == 2)
-                {
-                    total_bullets = total_bullets - 2;
-                    current_bullet = current_bullet + 2;
-                    villanBullets.Add(current_bullet);  
-                }
-                 
-                else
+                catch (Exception e)
                 {
                     Console.WriteLine("Enter a Valid Input");
+                    is_valid = false;
                 }
-                Console.WriteLine($"Bullets Remaining {total_bullets}");
             }
 
-        }
 
-        public void ViewResult()
+
+        }
+        public int CaloriesCalculator(string[] x, int[] y)
         {
-            foreach (var item in heroBullets)
+            Console.WriteLine("\nCurrent Diet and the Calories");
+            int total_calories = 0;
+            for (int i = 0; i < x.Length; i++)
             {
-                Console.Write($"{item} ");
-
+                Console.WriteLine(x[i] + " : " + y[i]);
+                total_calories = y[i] + total_calories;
             }
-            Console.WriteLine();
-            foreach (var item2 in villanBullets)
+            return total_calories;
+        }
+
+        public void CaloriesResult(int total_cal, int my_limit)
+        {
+            if (my_limit < total_cal)
             {
-                Console.Write(item2);
+                Console.WriteLine("Good Diet");
+            }
+            else
+            {
+                Console.WriteLine("Eat More");
             }
         }
 
-            static void Main(string[] args)
-            {
-                HeroVillan incident = new HeroVillan();
 
-            incident.StartFight();
-            incident.ViewResult();
-            }
-        
+
+
+        public static void CaloriesEntry(string[] args)
+        {
+            NewUser user1 = new NewUser();
+
+
+            Console.WriteLine(user1.username);
+            string[] fruits = { "apple", "orange", "bannana" };
+            int[] calories = { 120, 85, 90 };
+            int myCalorieLimit = 300;
+
+
+/*
+            Tracker1.AddItem(ref fruits, ref calories);
+
+            int totalCal = Tracker1.CaloriesCalculator(fruits, calories);
+
+            Tracker1.CaloriesResult(totalCal, myCalorieLimit); */
+
+        }
     }
 }
